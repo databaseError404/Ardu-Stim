@@ -69,6 +69,33 @@ The first time you connect Ardu-Stim to an Arduino Nano board, you need to uploa
 
 **Note:** This only needs to be performed with a new Arduino Nano or if upgrading from an earlier version. The automated uploading of firmware is ONLY available for Arduino Nano boards. If using another board you will need to manually compile and upload the firmware (Not the GUI)
 
+## Serial Communication Protocol
+
+The GUI communicates with the Arduino over its USB virtual COM port using the board's hardware serial interface at **115200 baud (8-N-1)**. This is a small, project-specific command protocol, not CAN, Modbus, or an ECU diagnostic protocol. Commands are single, case-sensitive ASCII characters; commands that take arguments are followed by raw binary bytes. Text replies are terminated by a newline, while configuration replies are fixed-length binary data. The protocol has no general acknowledgement, checksum, or packet framing.
+
+| Command | Arguments / response | Purpose |
+| --- | --- | --- |
+| `C` | Returns 18 raw bytes | Read the packed configuration structure, including firmware version. |
+| `c` | Follow with 17 raw bytes | Set configuration fields; the version byte is omitted. See the layout below. |
+| `L` | One wheel name per line | List available trigger patterns. |
+| `n` | Decimal number and newline | Return the number of available patterns. |
+| `N` | Decimal index and newline | Return the currently selected pattern index. |
+| `S` | Follow with one byte | Select a pattern by zero-based index. |
+| `P` | CSV pattern line, then degrees line | Return the selected pattern's output states and cycle angle. |
+| `p` | Decimal number and newline | Return the selected pattern's number of edges. |
+| `R` | Decimal number and newline | Return the current generated RPM. |
+| `r` | Follow with 6 bytes | Set sweep low RPM, high RPM, and interval; each 16-bit value is sent high byte first. Also selects sweep mode. |
+| `s` | No arguments | Save the current configuration to EEPROM. |
+| `M` | Decimal mask and newline | Return a bitmask of outputs carrying the inverted crank signal. |
+| `X` | Prints the next pattern name | Test command that advances to the next pattern. |
+| `a` | No arguments or response | No-op. |
+
+The 18-byte configuration returned by `C` is the packed firmware structure. Its byte offsets are: `0` version; `1` wheel index; `2` RPM mode; `3–4` fixed RPM; `5–6` sweep low RPM; `7–8` sweep high RPM; `9–10` sweep interval; `11` compression simulation enable; `12` compression type; `13–14` compression RPM threshold; `15–16` compression offset; and `17` dynamic compression flag. The 16-bit values in this structure are little-endian. For `c`, send the 17 bytes at structure offsets `1–17` after the command byte. RPM modes are `0` = sweep, `1` = fixed, and `2` = potentiometer.
+
+The GUI uses this protocol to select trigger patterns, set RPM behavior, configure the optional compression simulation, save settings, and display the current RPM and pattern. The Arduino generates crank/cam signals on its output pins; this serial link does **not** read ECU diagnostics or communicate with the ECU itself. Firmware upload is a separate bootloader operation performed by `avrdude`, not by this runtime command protocol.
+
+**Implementation note:** In the current `UI/renderer.js`, `sendConfig()` writes the dynamic compression flag at buffer index `16` instead of `17`. This overwrites the high byte of the compression offset, and the dynamic flag is therefore not transmitted correctly by the GUI.
+
 ## Firmware Build
 
 Optionally, the firmware source code can be built in either PlatformIO or the Arduino IDE and does not have any dependencies on 3rd party libraries that were used in the original version of Ardustim (Eg SerialUI)
