@@ -25,10 +25,30 @@ It is designed to run on an Arduino Nano, but will also work with Arduino Uno an
   - pin `8` will provide the `crank` or primary wheel signal
   - pin `9` will provide the `cam` or secondary wheel signal
   - Pin `10` will provide a `2nd cam` or tertiary wheel signal. This is for simulating some dual cam patterns
+  - Pin `11` (and any other output that the pattern doesn't use) also provides an `antiphase crank` output: an inverted copy of the crank signal on pin 8. See below
 - **Arduino Mega**
   - pin `53` will provide the `crank` or primary wheel signal
   - pin `52` will provide the `cam` or secondary wheel signal
   - Pin `51` will provide a `2nd cam` or tertiary wheel signal. This is for simulating some dual cam patterns
+  - Pin `50` (and any other output that the pattern doesn't use) also provides an `antiphase crank` output: an inverted copy of the crank signal on pin 53. See below
+
+### Antiphase crank output
+
+Many crankshaft (VR/inductive) sensors produce two signals that are 180 degrees out of phase, which the ECU reads differentially. To simulate this, Ardu-Stim always outputs an inverted copy of the crank signal:
+
+- Arduino Nano/Uno: `crank` = pin `8`, `antiphase crank` = pin `11`
+- Arduino Mega: `crank` = pin `53`, `antiphase crank` = pin `50`
+
+In addition, the inverted crank signal is also driven on every output that the selected pattern does not use:
+
+- On patterns without a cam signal, the cam outputs (`9`/`10` on Nano/Uno, `52`/`51` on Mega) also carry the inverted crank signal, so a second antiphase signal is available on the pins that are otherwise idle.
+- The spare outputs (`12` and `13` on Nano/Uno, `10` and `11` on Mega) always carry the inverted crank signal (`13` is the on-board LED, so the LED shows the crank activity).
+
+Example: with a crank-only pattern (`60-2 crank only`, `36-1`, ...) the inverted crank signal is available on pins 9, 10, 11, 12 and 13; with a pattern that uses both cam outputs (eg `GM LS1`), it is available on pins 11, 12 and 13.
+
+The antiphase output is always the exact inverse of the crank output on the primary pin, so the two signals are always in true antiphase (180 degrees apart). It is always active and needs no configuration - there is no setting for it in the GUI. The `M` command over the serial interface returns a bitmask of the outputs that currently carry the inverted crank signal (bit 1 = cam1 output, bit 2 = cam2 output, bit 3 = dedicated antiphase output, bit 4/5 = spare outputs).
+
+**Note:** The outputs are 0-5V logic level signals. If you are feeding a differential VR sensor input, use a suitable driver stage (eg a buffer/comparator or the ECU's own conditioning circuit inputs) rather than connecting the pins directly. Also keep in mind that pins 11/12/13 (50 on Mega) are shared with the ICSP/SPI lines, so do not use those outputs if an ICSP programmer is permanently attached to the board.
 
 Example for `Arduino Nano` connected to `Speeduino v0.4` ECU:
 

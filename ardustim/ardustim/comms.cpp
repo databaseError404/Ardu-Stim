@@ -36,6 +36,7 @@ extern wheels Wheels[];
 extern volatile bool normal;
 extern volatile uint16_t edge_counter;
 extern volatile uint16_t new_OCR1A;
+extern volatile uint8_t antiphase_mask;
 
 bool cmdPending;
 byte currentCommand;
@@ -71,6 +72,7 @@ void commandParser()
       {
         *((uint8_t *)pnt_Config + x) = Serial.read(); //Read each byte into the config table
       }
+      updateAntiphaseMask(); //The wheel (and with it the used outputs) may have changed
       break;
 
     case 'C': //Send the current config
@@ -94,6 +96,10 @@ void commandParser()
 
     case 'n': //Send the number of wheels
       Serial.println(MAX_WHEELS);
+      break;
+
+    case 'M': //Send the mask of outputs that carry the inverted (antiphase) crank signal
+      Serial.println(antiphase_mask);
       break;
 
     case 'N': //Send the number of the current wheel
@@ -191,6 +197,7 @@ void display_new_wheel()
 {
   reset_new_OCR1A(currentStatus.rpm);
   edge_counter = 0; // Reset to beginning of the wheel pattern */
+  updateAntiphaseMask(); //Recalculate which outputs carry the inverted (antiphase) crank signal
 }
 
 

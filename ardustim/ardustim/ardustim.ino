@@ -29,6 +29,10 @@
 #include <EEPROM.h>
 
 struct configTable config;
+/* The config table is sent to/from the GUI as a raw byte buffer. If this size changes,
+ * the CONFIG_SIZE value in UI/renderer.js must be updated to match (and the protocol
+ * version bumped so that an old GUI detects the mismatch). */
+static_assert(sizeof(struct configTable) == 18, "configTable size changed - update GUI CONFIG_SIZE");
 struct status currentStatus;
 
 /* Sensistive stuff used in ISR's */
@@ -41,6 +45,7 @@ volatile bool adc0_read_complete = false;
 volatile bool adc1_read_complete = false;
 volatile bool reset_prescaler = false;
 volatile uint8_t output_invert_mask = 0x00; /* Don't invert anything */
+volatile uint8_t antiphase_mask = (1 << ANTIPHASE_CRANK_BIT); /* Outputs that carry the inverted crank signal */
 volatile uint8_t prescaler_bits = 0;
 volatile uint8_t last_prescaler_bits = 0;
 volatile uint16_t new_OCR1A = 5000; /* sane default */
@@ -127,6 +132,7 @@ wheels Wheels[MAX_WHEELS] = {
 /* Initialization */
 void setup() {
   loadConfig();
+  updateAntiphaseMask();
   serialSetup();
 
   cli(); // stop interrupts
@@ -207,7 +213,7 @@ void setup() {
   pinMode(8, OUTPUT); /* Primary (crank usually) output */
   pinMode(9, OUTPUT); /* Secondary (cam1 usually) output */
   pinMode(10, OUTPUT); /* Tertiary (cam2 usually) output */
-  pinMode(11, OUTPUT); /* Knock signal for seank, ony on LS1 pattern, NOT IMPL YET */
+  pinMode(ANTIPHASE_CRANK_PIN, OUTPUT); /* Antiphase (inverted) copy of the crank output, always driven. Pin 11 on Nano/Uno and pin 50 on Mega (both PB3). Replaces the LS1 knock signal on pin 11, which was never implemented */
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
   pinMode(53, OUTPUT); /* crank */
   pinMode(52, OUTPUT); /* cam 1 */
@@ -260,7 +266,16 @@ ISR(ADC_vect){
 ISR(TIMER1_COMPA_vect) 
 {
   /* This is VERY simple, just walk the array and wrap when we hit the limit */
-  PORTB = output_invert_mask ^ pgm_read_byte(&Wheels[config.wheel].edge_states_ptr[edge_counter]);   /* Write it to the port */
+  uint8_t outputState = output_invert_mask ^ pgm_read_byte(&Wheels[config.wheel].edge_states_ptr[edge_counter]);
+
+  /* Drive the antiphase outputs (see updateAntiphaseMask()) with an inverted copy of the crank
+   * signal, giving two crank signals in antiphase (180 degrees apart), eg to drive a differential
+   * (VR) crankshaft sensor input. This costs only a couple of instructions per edge. */
+  uint8_t antiphaseMask = antiphase_mask;
+  if (outputState & 0x01) { outputState &= ~antiphaseMask; } /* Crank high -> antiphase outputs low */
+  else { outputState |= antiphaseMask; }                     /* Crank low  -> antiphase outputs high */
+
+  PORTB = outputState;   /* Write it to the port */
   
   edge_counter++;
   if (edge_counter == Wheels[config.wheel].wheel_max_edges) 
@@ -280,6 +295,29 @@ ISR(TIMER1_COMPA_vect)
   }
   /* Reset next compare value for RPM changes */
   OCR1A = new_OCR1A;  /* Apply new "RPM" from Timer2 ISR, i.e. speed up/down the virtual "wheel" */
+}
+
+/*!
+ * Works out which outputs carry the inverted (antiphase) copy of the crank signal.
+ * \details The dedicated antiphase output (ANTIPHASE_CRANK_PIN) is always driven, plus any
+ * output that the currently selected pattern doesn't use (eg the cam outputs of a crank-only
+ * pattern) and the spare outputs (D12/D13). This way two crank signals in antiphase are
+ * available on the otherwise idle pins for any pattern, without changing the pattern data
+ * itself, eg to drive a differential (VR) crankshaft sensor input.
+ */
+void updateAntiphaseMask()
+{
+  uint8_t usedOutputs = 0;
+  for (uint16_t i = 0; i < Wheels[config.wheel].wheel_max_edges; i++)
+  {
+    usedOutputs |= pgm_read_byte(&Wheels[config.wheel].edge_states_ptr[i]);
+  }
+
+  uint8_t mask = (1 << ANTIPHASE_CRANK_BIT);        /* Dedicated antiphase output, always driven */
+  if ((usedOutputs & 0x02) == 0) { mask |= 0x02; }  /* Cam1 output (D9) not used by this pattern */
+  if ((usedOutputs & 0x04) == 0) { mask |= 0x04; }  /* Cam2 output (D10) not used by this pattern */
+  mask |= 0x30;                                     /* Spare outputs D12 (PB4) and D13 (PB5), never used by a pattern */
+  antiphase_mask = mask;
 }
 
 void loop() 

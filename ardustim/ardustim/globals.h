@@ -30,6 +30,21 @@
 #define TMP_RPM_CAP 9000 /* MAX RPM via pot control. Adjusted to 9,000rpm max from 16,384rpm to match the GUI */
 #define EEPROM_LAST_MODE  100
 
+/* Pin used for the antiphase (inverted) copy of the crank signal.
+ * On the Uno/Nano this is digital pin 11 and on the Mega it is digital pin 50,
+ * both of which are PORTB bit 3 (PB3). None of the wheel patterns use that bit,
+ * so it can be updated in the same PORTB write as the normal pattern.
+ * This output is always active, there is no setting to enable/disable it.
+ * NOTE: on the Uno/Nano pin 11 is also ICSP MOSI and on the Mega pin 50 is ICSP
+ * MISO, so do not use this output if an ICSP programmer is permanently attached.
+ */
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+  #define ANTIPHASE_CRANK_PIN 50
+#else
+  #define ANTIPHASE_CRANK_PIN 11
+#endif
+#define ANTIPHASE_CRANK_BIT 3
+
 #define COMPRESSION_TYPE_1CYL_4STROKE 0 //Not initiallity supported
 #define COMPRESSION_TYPE_2CYL_4STROKE 1
 #define COMPRESSION_TYPE_3CYL_4STROKE 2 //Not initiallity supported

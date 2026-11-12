@@ -31,6 +31,7 @@ void get_prescaler_bits(uint32_t *, uint8_t *, uint8_t *);
 void setRPM(uint16_t);
 uint16_t calculateCompressionModifier();
 uint16_t calculateCurrentCrankAngle();
+void updateAntiphaseMask();
 
 /* Prototypes */
 
