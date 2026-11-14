@@ -1,3 +1,16 @@
+# UART-стенд Nano: датчики и автономный АЦП
+
+Новый модуль **[nano_bench/](nano_bench/README.md)** — прошивка Nano ATmega328P 0.3.0, Python-клиент, UART 1 Мбод и автономная отправка A6/A7 без запросов на каждый отсчёт. ADS1115 проверен на оборудовании; TPL0501/MCP4725 реализованы, но физически не проверены. Это не законченный стенд ЭБУ.
+
+- [Начало работы и команды](nano_bench/README.md)
+- [Протокол](nano_bench/PROTOCOL.md)
+- [Аппаратные результаты и ограничения](nano_bench/HARDWARE_REPORT.md)
+- **[Продолжить работу после сессии](nano_bench/SESSION_HANDOFF.md)**
+
+`nano_bench` не совместим со старым GUI и использует другую распиновку. Исходные `ardustim/`, `UI/` и описание ниже сохранены как **legacy**; не применять их схемы подключения к новому модулю. При фиксации результатов исходники, тесты и доказательства перенесены из локальной workspace по прямой просьбе пользователя; происхождение указано в [PROVENANCE.json](nano_bench/PROVENANCE.json).
+
+---
+
 <div align="center">
 
 <img src="https://github.com/speeduino/wiki.js/raw/master/img/Speeduino%20logo_med.png" alt="Speeduino" width="600" />

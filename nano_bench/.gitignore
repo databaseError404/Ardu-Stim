@@ -1,0 +1,11 @@
+.build/
+.cache/
+.pio/
+.local/
+backups/
+logs/
+__pycache__/
+*.py[cod]
+*.hex
+*.elf
+*.bin

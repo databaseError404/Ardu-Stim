@@ -1,0 +1,10 @@
+{
+  "utc": "20261114T070601Z",
+  "hex_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
+  "port": "COM79",
+  "bootloader_baud": 57600,
+  "flash_only": true,
+  "verified": true,
+  "application_baud": 1000000,
+  "source_sha256": "c2b2726636b222e339a45b601c345be07f9d4a5797864c201fa24757b50c8030"
+}

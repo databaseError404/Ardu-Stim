@@ -1,0 +1,20 @@
+{
+  "hello": {
+    "fw_major": 0,
+    "fw_minor": 2,
+    "fw_patch": 0,
+    "capabilities": 127,
+    "max_payload": 48,
+    "device_count": 5
+  },
+  "status": {
+    "uptime_us": 557704,
+    "crank_running": false,
+    "rpm": 0,
+    "stream_running": false,
+    "rx_errors": 0,
+    "tx_dropped": 0,
+    "adc_missed": 0,
+    "i2c_errors": 0
+  }
+}

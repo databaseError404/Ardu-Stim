@@ -1,0 +1,305 @@
+[
+  {
+    "host_monotonic": 2454893.5400275,
+    "kind": "hello",
+    "data": {
+      "fw_major": 0,
+      "fw_minor": 3,
+      "fw_patch": 0,
+      "capabilities": 255,
+      "max_payload": 48,
+      "device_count": 5
+    }
+  },
+  {
+    "host_monotonic": 2454893.550492,
+    "kind": "scan",
+    "data": [
+      72
+    ]
+  },
+  {
+    "host_monotonic": 2454893.5527049,
+    "kind": "initial_status",
+    "data": {
+      "uptime_us": 568560,
+      "crank_running": false,
+      "rpm": 0,
+      "stream_running": false,
+      "rx_errors": 0,
+      "tx_dropped": 0,
+      "adc_missed": 0,
+      "i2c_errors": 0
+    }
+  },
+  {
+    "host_monotonic": 2454893.5547943,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 3
+    }
+  },
+  {
+    "host_monotonic": 2454893.5568295,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 3
+    }
+  },
+  {
+    "host_monotonic": 2454893.5588902,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 3
+    }
+  },
+  {
+    "host_monotonic": 2454893.5612501,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 3
+    }
+  },
+  {
+    "host_monotonic": 2454893.5632868,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 3
+    }
+  },
+  {
+    "host_monotonic": 2454893.5653382,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 2
+    }
+  },
+  {
+    "host_monotonic": 2454913.5998025,
+    "kind": "summary",
+    "data": {
+      "label": "native_100hz_each_receive_only",
+      "nominal_seconds": 20.0,
+      "devices": {
+        "5": {
+          "count": 4004,
+          "gaps": [],
+          "flags": {
+            "0": 4004
+          },
+          "channels": {
+            "6": {
+              "count": 2002,
+              "mean_interval_us": 9999.924037981009,
+              "min_interval_us": 9836,
+              "max_interval_us": 10016
+            },
+            "7": {
+              "count": 2002,
+              "mean_interval_us": 9999.92603698151,
+              "min_interval_us": 9844,
+              "max_interval_us": 10016
+            }
+          }
+        }
+      },
+      "host_drops": 0
+    }
+  },
+  {
+    "host_monotonic": 2454913.6083958,
+    "kind": "expected_error",
+    "data": {
+      "command": 32,
+      "status": 8
+    }
+  },
+  {
+    "host_monotonic": 2454913.6104127,
+    "kind": "expected_error",
+    "data": {
+      "command": 6,
+      "status": 8
+    }
+  },
+  {
+    "host_monotonic": 2454913.6125792,
+    "kind": "expected_error",
+    "data": {
+      "command": 33,
+      "status": 8
+    }
+  },
+  {
+    "host_monotonic": 2454915.6546734,
+    "kind": "summary",
+    "data": {
+      "label": "native_A6_50hz",
+      "nominal_seconds": 2,
+      "devices": {
+        "5": {
+          "count": 102,
+          "gaps": [],
+          "flags": {
+            "0": 102
+          },
+          "channels": {
+            "6": {
+              "count": 102,
+              "mean_interval_us": 19998.059405940596,
+              "min_interval_us": 19804,
+              "max_interval_us": 20016
+            }
+          }
+        }
+      },
+      "host_drops": 0
+    }
+  },
+  {
+    "host_monotonic": 2454916.6893347,
+    "kind": "summary",
+    "data": {
+      "label": "native_retained_parameters",
+      "nominal_seconds": 1,
+      "devices": {
+        "5": {
+          "count": 51,
+          "gaps": [],
+          "flags": {
+            "0": 51
+          },
+          "channels": {
+            "6": {
+              "count": 51,
+              "mean_interval_us": 19998.64,
+              "min_interval_us": 19920,
+              "max_interval_us": 20020
+            }
+          }
+        }
+      },
+      "host_drops": 0
+    }
+  },
+  {
+    "host_monotonic": 2454926.8406498,
+    "kind": "summary",
+    "data": {
+      "label": "both_streams_native100hz_ADS860sps",
+      "nominal_seconds": 10.1,
+      "devices": {
+        "2": {
+          "count": 8898,
+          "gaps": [],
+          "flags": {
+            "1": 8898
+          },
+          "channels": {
+            "0": {
+              "count": 8898,
+              "mean_interval_us": 1136.3569742609868,
+              "min_interval_us": 1128,
+              "max_interval_us": 1148
+            }
+          }
+        },
+        "5": {
+          "count": 2002,
+          "gaps": [],
+          "flags": {
+            "0": 2002
+          },
+          "channels": {
+            "6": {
+              "count": 1001,
+              "mean_interval_us": 9999.792,
+              "min_interval_us": 9408,
+              "max_interval_us": 10272
+            },
+            "7": {
+              "count": 1001,
+              "mean_interval_us": 9999.78,
+              "min_interval_us": 9324,
+              "max_interval_us": 10280
+            }
+          }
+        }
+      },
+      "host_drops": 0
+    }
+  },
+  {
+    "host_monotonic": 2454929.8733152,
+    "kind": "summary",
+    "data": {
+      "label": "native_1000hz_each",
+      "nominal_seconds": 3,
+      "devices": {
+        "5": {
+          "count": 6004,
+          "gaps": [],
+          "flags": {
+            "0": 6004
+          },
+          "channels": {
+            "6": {
+              "count": 3002,
+              "mean_interval_us": 1000.0333222259247,
+              "min_interval_us": 976,
+              "max_interval_us": 1108
+            },
+            "7": {
+              "count": 3002,
+              "mean_interval_us": 1000.0346551149617,
+              "min_interval_us": 976,
+              "max_interval_us": 1108
+            }
+          }
+        }
+      },
+      "host_drops": 0
+    }
+  },
+  {
+    "host_monotonic": 2454929.8767082,
+    "kind": "final_status",
+    "data": {
+      "uptime_us": 36901132,
+      "crank_running": false,
+      "rpm": 0,
+      "stream_running": false,
+      "rx_errors": 0,
+      "tx_dropped": 0,
+      "adc_missed": 0,
+      "i2c_errors": 0
+    }
+  },
+  {
+    "host_monotonic": 2454929.8812786,
+    "kind": "oneshot_after_stop",
+    "data": {
+      "id": 5,
+      "channel": 6,
+      "sample_number": 12164,
+      "timestamp_us": 36905904,
+      "value": 274,
+      "flags": 0
+    }
+  },
+  {
+    "host_monotonic": 2454929.8813279,
+    "kind": "command_audit",
+    "data": {
+      "total_requests": 33,
+      "read_requests_before_final_oneshot": 1,
+      "telemetry_phase_outbound": 0
+    }
+  }
+]

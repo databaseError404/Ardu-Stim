@@ -1,0 +1,5 @@
+# Preserve verified source/evidence bytes and manifest hashes on every platform.
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.gz binary
+# Original avrdude transcripts may end with blank lines; do not rewrite them.
+evidence/** whitespace=blank-at-eol,-blank-at-eof,space-before-tab,cr-at-eol

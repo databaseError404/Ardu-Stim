@@ -1,0 +1,35 @@
+test_method_exact_payloads_and_decoded_validation (test_bench_client.ClientTests.test_method_exact_payloads_and_decoded_validation) ... ok
+test_native_adc_config_and_read_and_ads_events (test_bench_client.ClientTests.test_native_adc_config_and_read_and_ads_events) ... ok
+test_native_adc_rejects_bad_channels_shapes_codes_and_flags (test_bench_client.ClientTests.test_native_adc_rejects_bad_channels_shapes_codes_and_flags) ... ok
+test_native_and_ads_events_mixed_demux_and_validation (test_bench_client.ClientTests.test_native_and_ads_events_mixed_demux_and_validation) ... ok
+test_native_periodic_stream_payload_validation_and_no_adc_read (test_bench_client.ClientTests.test_native_periodic_stream_payload_validation_and_no_adc_read) ... ok
+test_native_volts_conversion_validation (test_bench_client.ClientTests.test_native_volts_conversion_validation) ... ok
+test_overflow_recovers_at_delimiter (test_bench_client.ClientTests.test_overflow_recovers_at_delimiter) ... ok
+test_parser_reset_open_close_and_sequence_nonzero (test_bench_client.ClientTests.test_parser_reset_open_close_and_sequence_nonzero) ... ok
+test_reply_shape_and_echo_errors_are_protocol_errors (test_bench_client.ClientTests.test_reply_shape_and_echo_errors_are_protocol_errors) ... ok
+test_retry_is_identical_and_remote_error_not_retried (test_bench_client.ClientTests.test_retry_is_identical_and_remote_error_not_retried) ... ok
+test_scan_limit_and_raw_volts (test_bench_client.ClientTests.test_scan_limit_and_raw_volts) ... ok
+test_stale_response_telemetry_and_response_demultiplex (test_bench_client.ClientTests.test_stale_response_telemetry_and_response_demultiplex) ... ok
+test_cobs_boundaries_and_deterministic_random_roundtrips (test_bench_client.CodecTests.test_cobs_boundaries_and_deterministic_random_roundtrips) ... ok
+test_cobs_truncated_and_invalid_codewords (test_bench_client.CodecTests.test_cobs_truncated_and_invalid_codewords) ... ok
+test_crc_reference (test_bench_client.CodecTests.test_crc_reference) ... ok
+test_frame_header_length_crc_type_version_and_sequences (test_bench_client.CodecTests.test_frame_header_length_crc_type_version_and_sequences) ... ok
+test_frame_random_payloads_all_sizes_and_max_wire (test_bench_client.CodecTests.test_frame_random_payloads_all_sizes_and_max_wire) ... ok
+test_dtr_preconfigured_no_reset_mode_is_best_effort (test_cli_and_timing.CliTests.test_dtr_preconfigured_no_reset_mode_is_best_effort) ... ok
+test_json_config_and_device_lists (test_cli_and_timing.CliTests.test_json_config_and_device_lists) ... ok
+test_nano_stream_cli_one_start_uart_read_then_stop_no_adc_read (test_cli_and_timing.NanoStreamCliTests.test_nano_stream_cli_one_start_uart_read_then_stop_no_adc_read) ... ok
+test_nano_stream_cli_validates_parameters_before_open (test_cli_and_timing.NanoStreamCliTests.test_nano_stream_cli_validates_parameters_before_open) ... usage: bench_cli.py [-h] --port PORT [--baud BAUD] [--boot-wait BOOT_WAIT]
+                    [--no-reset]
+                    {hello,status,devices,scan,adc-read,adc-stream,adc-stop,stop,nano-stream,nano-read,config,set-output,get-output,crank-config,rpm} ...
+bench_cli.py: error: period_us must be an integer in 1000..10000000
+ok
+test_all_rpm_timer_divisors_fit_and_quantization (test_cli_and_timing.TimerReferenceModelTests.test_all_rpm_timer_divisors_fit_and_quantization) ... ok
+test_missing_tooth_waveform_revolution_grid (test_cli_and_timing.TimerReferenceModelTests.test_missing_tooth_waveform_revolution_grid) ... ok
+test_deadline_phase_across_micros_rollover (test_native_schedule_model.NativeScheduleModelTests.test_deadline_phase_across_micros_rollover) ... ok
+test_late_idle_starts_one_cycle_but_busy_keeps_old (test_native_schedule_model.NativeScheduleModelTests.test_late_idle_starts_one_cycle_but_busy_keeps_old) ... ok
+test_count_only_blocks_for_uart_instead_of_nonblocking_spin (test_stream_iterator.StreamIteratorTests.test_count_only_blocks_for_uart_instead_of_nonblocking_spin) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.120s
+
+OK

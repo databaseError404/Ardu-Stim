@@ -1,0 +1,8 @@
+{
+  "prepared_utc": "2026-11-14T16:27:11.303167+00:00",
+  "source_workspace": "H:/2026/ChipTuning/mse6/workspace/2026-11-14_nano_adc_stream",
+  "source_manifest_sha256": "3529c8642851e4f6f35264674410180aab02a9211f08411f606b6dda129488db",
+  "firmware_source_sha256": "c2b2726636b222e339a45b601c345be07f9d4a5797864c201fa24757b50c8030",
+  "original_firmware_image_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
+  "note": "Production snapshot authorized by user; sources copied unchanged; firmware binaries/backups/temp files remain in workspace. Published .jsonl.gz decompresses byte-identically to original journals."
+}

@@ -1,0 +1,20 @@
+{
+  "checked_utc": "2026-11-14T16:38:31.811668+00:00",
+  "scope": "offline tests and compilation only; no hardware access during publication",
+  "unittest_count": 30,
+  "unittest_result": "OK",
+  "arduino_cli": "1.0.4",
+  "arduino_avr_core": "1.8.6",
+  "avr_gcc": "7.3.0",
+  "pyserial": "3.5",
+  "fqbn": "arduino:avr:nano:cpu=atmega328old",
+  "uart_baud": 1000000,
+  "flash_bytes": 13432,
+  "static_ram_bytes": 1152,
+  "firmware_source_unchanged": true,
+  "host_source_unchanged": true,
+  "reproduced_hex_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
+  "matches_historically_verified_flash": true,
+  "evidence_gzip_matches_original": true,
+  "tools_backup_upload": "mock-tested only; not executed on hardware during publication"
+}

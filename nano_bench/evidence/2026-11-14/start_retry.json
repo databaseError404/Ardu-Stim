@@ -1,0 +1,19 @@
+{
+  "duplicate_start_reply_status": 0,
+  "intervals_us": [
+    49712,
+    50004,
+    50008
+  ],
+  "sample_count": 4,
+  "status": {
+    "uptime_us": 762244,
+    "crank_running": false,
+    "rpm": 0,
+    "stream_running": false,
+    "rx_errors": 0,
+    "tx_dropped": 0,
+    "adc_missed": 0,
+    "i2c_errors": 0
+  }
+}
