@@ -1,6 +1,6 @@
 {
-  "checked_utc": "2026-11-14T16:38:31.811668+00:00",
-  "scope": "offline tests and compilation only; no hardware access during publication",
+  "checked_utc": "2026-11-15T18:59:52Z",
+  "scope": "offline tests and compilation only; hardware flash/verify performed separately (see evidence/2026-11-15)",
   "unittest_count": 30,
   "unittest_result": "OK",
   "arduino_cli": "1.0.4",
@@ -9,12 +9,18 @@
   "pyserial": "3.5",
   "fqbn": "arduino:avr:nano:cpu=atmega328old",
   "uart_baud": 1000000,
-  "flash_bytes": 13432,
+  "flash_bytes": 13378,
   "static_ram_bytes": 1152,
   "firmware_source_unchanged": true,
   "host_source_unchanged": true,
-  "reproduced_hex_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
-  "matches_historically_verified_flash": true,
-  "evidence_gzip_matches_original": true,
-  "tools_backup_upload": "mock-tested only; not executed on hardware during publication"
+  "builds_compared": 2,
+  "reproduced_hex_sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93",
+  "matches_flashed_verified_image": true,
+  "archived_journals_unchanged": true,
+  "tools_backup_upload": "executed on hardware 2026-11-15 for the 0.4.0 update (read-only backup, flash write, avrdude verify)",
+  "previous_check": {
+    "checked_utc": "2026-11-14T16:38:31.811668+00:00",
+    "unittest_count": 30,
+    "reproduced_hex_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72"
+  }
 }

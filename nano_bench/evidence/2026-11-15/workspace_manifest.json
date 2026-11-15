@@ -1,0 +1,148 @@
+{
+  "created_utc": "2026-11-15T19:02:54.426037+00:00",
+  "firmware_version": "0.4.0",
+  "protocol_version": 1,
+  "port": "COM79",
+  "mcu_signature": "1e950f",
+  "bootloader_baud": 57600,
+  "uart_baud": 1000000,
+  "flash_bytes": 13378,
+  "static_ram_bytes": 1152,
+  "offline_tests": 30,
+  "periodic_defaults": {
+    "channels": [
+      6,
+      7
+    ],
+    "period_us_per_channel": 10000,
+    "batching": false,
+    "per_sample_host_poll": false
+  },
+  "build_settings": {
+    "source": "firmware\\bench\\bench.ino",
+    "hex": "bench.ino.hex",
+    "source_sha256": "94cc62f84c07aa41552e35aac6540d13979e17b531ea303bbd760aeabbaf161b",
+    "hex_sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93",
+    "uart_baud": 1000000
+  },
+  "repro_build_settings": {
+    "source": "firmware\\bench\\bench.ino",
+    "hex": "bench.ino.hex",
+    "source_sha256": "94cc62f84c07aa41552e35aac6540d13979e17b531ea303bbd760aeabbaf161b",
+    "hex_sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93",
+    "uart_baud": 1000000
+  },
+  "last_upload": {
+    "utc": "20261115T184155Z",
+    "hex_sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93",
+    "port": "COM79",
+    "bootloader_baud": 57600,
+    "flash_only": true,
+    "verified": true,
+    "application_baud": 1000000,
+    "source_sha256": "94cc62f84c07aa41552e35aac6540d13979e17b531ea303bbd760aeabbaf161b"
+  },
+  "last_upload_log": "nano_bench/.build/20261115T184155Z/upload.log",
+  "files": {
+    "README.md": {
+      "bytes": 6680,
+      "sha256": "d1d9e7693c5956007e4437ff7fb812ed159d92eb56186eb99040e6a34ef54f04"
+    },
+    "changes.diff": {
+      "bytes": 49917,
+      "sha256": "4813b88d58b5e1996d221b33d2d2cc732f383e5146e7da8bfe64b996fc9a662e"
+    },
+    "bench_v0.4.0_48-1_1000rpm.hex": {
+      "bytes": 37650,
+      "sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93"
+    },
+    "compare_hex.py": {
+      "bytes": 1543,
+      "sha256": "753ab89322544064b27665f949838163af4e3cabd98b35ccb50b31188a49c8c8"
+    },
+    "verify_after_flash.py": {
+      "bytes": 3200,
+      "sha256": "a97341a929312aef2cf0526f7950191f9a35d4fd27d1d4d2491a0d8332650e76"
+    },
+    "unittest_2026-11-15.log": {
+      "bytes": 6717,
+      "sha256": "0dc4914d630255475edf5bb26824305cc5e7a64dc3dc4d55f10d8846b415ffe4"
+    },
+    "verify_after_flash_20261115T184236Z.jsonl": {
+      "bytes": 1842,
+      "sha256": "75f486eadeb149b9d6bd2ca5e87510c24637441bade7c96295e3da06b5c07b58"
+    },
+    "backup_before_flash/backup.log": {
+      "bytes": 3803,
+      "sha256": "b183c52d62166e981c3c4fe3df8ab60bf25dc02cd6885043200a85a07fd14a71"
+    },
+    "backup_before_flash/nano_before_eeprom.hex": {
+      "bytes": 2477,
+      "sha256": "ea5fa696fcf9e549aeaf74a23891abb79b6754b7cd958b9014e3de91d8285457"
+    },
+    "backup_before_flash/nano_before_flash.hex": {
+      "bytes": 78626,
+      "sha256": "b29d23e157ef43d8d0e527f14397e857c1b564d007146398e949cc7119289174"
+    },
+    "backup_before_flash/transport.json": {
+      "bytes": 101,
+      "sha256": "3cf5f91ce33f2cda61a14a6c8c2471db8fc1bb1de4bad932ec37423488962b3b"
+    },
+    "nano_bench/firmware/bench/bench.ino": {
+      "bytes": 38990,
+      "sha256": "94cc62f84c07aa41552e35aac6540d13979e17b531ea303bbd760aeabbaf161b"
+    },
+    "nano_bench/README.md": {
+      "bytes": 10027,
+      "sha256": "aa5b2a0aa0ebc4df12c7cadbc7c92257e71520319a14ab8c3f0fe3923eef0d69"
+    },
+    "nano_bench/SESSION_HANDOFF.md": {
+      "bytes": 9192,
+      "sha256": "8f936f78b2185203efddb617ad66ab809257a8018e1ae1a0d68e45f42e050300"
+    },
+    "nano_bench/HARDWARE_REPORT.md": {
+      "bytes": 9948,
+      "sha256": "83ad10053d87b197f79b0317dd01e680c2d17cee6d9333f1c34c64258d7bdb45"
+    },
+    "nano_bench/HOST_NOTES.md": {
+      "bytes": 4843,
+      "sha256": "787368fc1e0a0392c83551027d0f8b2d1b60f22be73487cccf85bbe32c1fc858"
+    },
+    "nano_bench/PROTOCOL.md": {
+      "bytes": 16444,
+      "sha256": "2defdaaf9a68e404965f4a6b76a72cd80e10bb947ed63f7e1e061604bc82e6b4"
+    },
+    "nano_bench/FIRMWARE_NOTES.md": {
+      "bytes": 5884,
+      "sha256": "ba7a61fa5d99f7ff0db72875ad7848565801bf24296cab92398c85a80574991e"
+    },
+    "nano_bench/.build/settings.json": {
+      "bytes": 273,
+      "sha256": "1b3befc4a356be12564a38e37a9f9236acea59d34fe4a3582e693f37738ed949"
+    },
+    "nano_bench/.build/bench.ino.hex": {
+      "bytes": 37650,
+      "sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93"
+    },
+    "nano_bench/.build/build.log": {
+      "bytes": 2719,
+      "sha256": "33b86293b1fe2355a8565629e69b45d9e0bf38aaf4c140c43590dad293344034"
+    },
+    "nano_bench/.build/20261115T184155Z/upload.log": {
+      "bytes": 1246,
+      "sha256": "b1f3935709aaf990e6e5cab4147652de081a725ff6fa8ac06e9b7d4041562a74"
+    },
+    "nano_bench/.build/20261115T184155Z/upload.json": {
+      "bytes": 333,
+      "sha256": "779a0d275d46d8f0d304c101ad01423206e188aec708d180f1c371faf898fda5"
+    },
+    "nano_bench/.build_repro/settings.json": {
+      "bytes": 273,
+      "sha256": "1b3befc4a356be12564a38e37a9f9236acea59d34fe4a3582e693f37738ed949"
+    },
+    "nano_bench/.build_repro/bench.ino.hex": {
+      "bytes": 37650,
+      "sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Nano v1 — протокол и контракт
 
-Версия прошивки 0.3.0, wire protocol 1. Это контракт реализации рабочего стенда, а не подтверждение совместимости с ЭБУ. Все целые поля многобайтовые — little-endian. Для точных ограничений и команды смотрите также реализацию в `firmware/bench/bench.ino` и `host/bench_client.py`.
+Версия прошивки 0.4.0, wire protocol 1. Это контракт реализации рабочего стенда, а не подтверждение совместимости с ЭБУ. Все целые поля многобайтовые — little-endian. Для точных ограничений и команды смотрите также реализацию в `firmware/bench/bench.ino` и `host/bench_client.py`.
 
 ## UART и кадрирование
 
@@ -27,7 +27,7 @@ UART 1 000 000 бод, 8N1 по умолчанию; резервная сбор�
 
 Kind: 1 TPL0501, 2 ADS1115, 3 MCP4725, 4 native ADC. Bus: 0 internal, 1 SPI, 2 I2C. Presence: 0 unknown, 1 ACK, 2 no ACK, 3 configured/unverifiable, 4 built-in. I2C ACK не подтверждает модель устройства. TPL0501 не имеет readback и не считается обнаруженным; SET_OUTPUT подтверждает только цифровую запись кода. Состояние выходов после reset — unknown; в setup нет записи в выходы или EEPROM.
 
-I2C: SDA A4, SCL A5, 400 kHz, timeout Wire 3000 мкс с восстановлением через API. SPI TPL: D10 /CS (idle HIGH), D11 MOSI, D13 SCK, mode 0, MSB first, 8 MHz. Crank: D8 и опционально инвертированный D9. D2 marker переключается ровно один раз после успешного SET_OUTPUT. UART — D0/D1. ADS ALERT/RDY — D3, pull-up, INT1/FALLING. A6/A7 — native ADC. Генератор меняет только PB0/PB1; не перезаписывает весь PORTB. В setup генератор остановлен; SPI запускается только при SET_OUTPUT. EEPROM не используется.
+I2C: SDA A4, SCL A5, 400 kHz, timeout Wire 3000 мкс с восстановлением через API. SPI TPL: D10 /CS (idle HIGH), D11 MOSI, D13 SCK, mode 0, MSB first, 8 MHz. Crank: D8 и опционально инвертированный D9. D2 marker переключается ровно один раз после успешного SET_OUTPUT. UART — D0/D1. ADS ALERT/RDY — D3, pull-up, INT1/FALLING. A6/A7 — native ADC. Генератор меняет только PB0/PB1; не перезаписывает весь PORTB. В setup генератор автоматически стартует с bench-настройками по умолчанию (pattern 3 = 48-1, инверсия включена, 1000 rpm); SPI запускается только при SET_OUTPUT. EEPROM не используется.
 
 ## Команды
 
@@ -35,7 +35,7 @@ I2C: SDA A4, SCL A5, 400 kHz, timeout Wire 3000 мкс с восстановле
 
 | Opcode | Команда | Запрос | Ответ |
 |---:|---|---|---|
-| `01` | HELLO | пустой | `<BBBIBB`: версия прошивки 0.3.0, capabilities:u32, max_payload=48, device_count=5. Биты capabilities 0..7: crank, ADS, TPL, DAC, ADS stream, marker, native ADC, native stream. |
+| `01` | HELLO | пустой | `<BBBIBB`: версия прошивки 0.4.0, capabilities:u32, max_payload=48, device_count=5. Биты capabilities 0..7: crank, ADS, TPL, DAC, ADS stream, marker, native ADC, native stream. |
 | `02` | GET_STATUS | пустой | `<IBHBIIII`: uptime_us, crank_running, rpm, stream_running (любой ADC stream), rx_errors, tx_dropped, adc_missed, i2c_errors. |
 | `03` | LIST_DEVICES | пустой | count:u8, затем count записей `<BBBBHB`: id, kind, bus, address, max_code, presence. |
 | `04` | I2C_SCAN | пустой | count:u8 + адреса 7-bit. Проверяются 0x08..0x77 инкрементально; при 47-м найденном адресе BAD_ARGUMENT (максимум 46). Не пишет регистры. ADS stream запрещает scan (BUSY); native stream не запрещает. Генератор не останавливается. |
@@ -46,7 +46,7 @@ I2C: SDA A4, SCL A5, 400 kHz, timeout Wire 3000 мкс с восстановле
 | `20` | ADC_READ | id:u8, 2 или 5 | `<BBIIhB>` id, channel, sample_number:u32, timestamp_us:u32, value:int16, flags:u8. Новое one-shot измерение по текущей конфигурации. Запрос устройства, которое уже стримит, получает BUSY; другой ADC можно читать. |
 | `21` | ADC_STREAM_START | ADS: id=2; Native: id=5 либо `<BBI>` id=5, mask, period_us | ответ `id:u8`. Для ADS — описанная ниже ALERT-семантика. Native: пустой payload после id повторяет последние параметры; подробности ниже. |
 | `22` | ADC_STREAM_STOP | id:u8, 2 или 5 | id:u8. Native STOP затрагивает только native scheduler; ADS STOP отключает поток MCU/IRQ и один раз посылает ADS команду idle. Уже буферизованные события могут прийти после ответа STOP. |
-| `30` | CRANK_CONFIG | `<BB>` pattern_id, invert_output 0/1 | те же поля. Только при остановленном генераторе. Справочные pattern 0=60-2, 1=36-1, 2=24-1; не Voge. D8 raw, D9 инверсия только при включённой опции, иначе LOW. |
+| `30` | CRANK_CONFIG | `<BB>` pattern_id, invert_output 0/1 | те же поля. Только при остановленном генераторе. Справочные pattern 0=60-2, 1=36-1, 2=24-1, 3=48-1; не Voge. После reset генератор автоматически стартует: pattern 3, invert=1, 1000 rpm. D8 raw, D9 инверсия только при включённой опции, иначе LOW. |
 | `31` | CRANK_SET_RPM | rpm:u16 | rpm:u16. 10..20000; 0 останавливает. Timer1 CTC, ограниченный ISR; проверяется допустимость периода/prescaler. |
 | `32` | CRANK_STOP | пустой | пустой. Идемпотентен, отключает timer IRQ и ведёт D8/D9 в LOW. |
 
@@ -72,6 +72,6 @@ Native STREAM_START: запрос только с id=5 повторяет пос
 
 ## Хост и безопасность использования
 
-Python-клиент использует стандартную библиотеку и pyserial; API — context manager с явным открытием, ожиданием boot после DTR reset, сопоставлением seq и разделением событий/ответов. Очередь событий ограничена, число host drops доступно клиенту. CLI требует явный порт, не перебирает COM-порты и не посылает диагностические команды ЭБУ. По умолчанию нет записей TPL/DAC и запуска crank. Hardware-тесты не входят в unittest discovery.
+Python-клиент использует стандартную библиотеку и pyserial; API — context manager с явным открытием, ожиданием boot после DTR reset, сопоставлением seq и разделением событий/ответов. Очередь событий ограничена, число host drops доступно клиенту. CLI требует явный порт, не перебирает COM-порты и не посылает диагностические команды ЭБУ. CLI по умолчанию не посылает записей TPL/DAC и команды запуска crank; однако с 0.4.0 каждый reset (в т. ч. открытие COM) автоматически запускает генератор ДПКВ — это состояние платы, а не команда CLI. Hardware-тесты не входят в unittest discovery.
 
 Повтор запроса при timeout ограничен одной идентичной wire-посылкой/seq, не является повтором операции с новым seq. COM open сбрасывает Nano на проверенном CH340; программный `--no-reset` не даёт гарантии. При неоднозначном timeout ADC_READ повтор с новым seq может вызвать ещё одно измерение.

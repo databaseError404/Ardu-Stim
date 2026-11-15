@@ -1,8 +1,10 @@
 {
-  "prepared_utc": "2026-11-14T16:27:11.303167+00:00",
-  "source_workspace": "H:/2026/ChipTuning/mse6/workspace/2026-11-14_nano_adc_stream",
-  "source_manifest_sha256": "3529c8642851e4f6f35264674410180aab02a9211f08411f606b6dda129488db",
-  "firmware_source_sha256": "c2b2726636b222e339a45b601c345be07f9d4a5797864c201fa24757b50c8030",
-  "original_firmware_image_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
-  "note": "Production snapshot authorized by user; sources copied unchanged; firmware binaries/backups/temp files remain in workspace. Published .jsonl.gz decompresses byte-identically to original journals."
+  "prepared_utc": "2026-11-15T19:01:14.231640+00:00",
+  "source_workspace": "H:/2026/ChipTuning/mse6/workspace/2026-11-15_crank_48-1_1000rpm",
+  "source_manifest_sha256": "838cb3269c40c1e3b8a3aff5c23ff2671917a365f950a09d8a01d748a853e2dc",
+  "firmware_source_sha256": "94cc62f84c07aa41552e35aac6540d13979e17b531ea303bbd760aeabbaf161b",
+  "previous_verified_image_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
+  "updated_verified_image_sha256": "0b8984c459b2273fde1411001f166c9fd58ac13374781263dee2b46101ac2b93",
+  "update_utc": "2026-11-15T18:41:55Z",
+  "note": "Update 0.4.0 authorized by user 2026-11-15: pattern 3 = 48-1; boot auto-start 48-1 / inverted / 1000 rpm; HELLO reports 0.4.0; wire protocol 1 unchanged. Source copied from the workspace; two independent builds produced the same HEX; the HEX was flashed to the board on COM79 (avrdude verify OK) after a read-only backup showed the board still carried the published 0.3.0 image (byte-identical, 0 diffs). Firmware binaries and backups remain in the workspace; update journals are in evidence/2026-11-15/; the 2026-11-14 publication (including .jsonl.gz journals) is unchanged."
 }

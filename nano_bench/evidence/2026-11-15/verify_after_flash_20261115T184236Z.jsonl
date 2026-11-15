@@ -1,0 +1,17 @@
+{"capabilities": 255, "device_count": 5, "fw_major": 0, "fw_minor": 4, "fw_patch": 0, "host_monotonic": 22471.9105311, "max_payload": 48, "step": "hello"}
+{"host_monotonic": 22471.9106034, "name": "firmware_0.4.0", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9106246, "name": "capabilities_crank", "ok": true, "step": "check"}
+{"adc_missed": 0, "crank_running": true, "host_monotonic": 22471.9128142, "i2c_errors": 0, "rpm": 1000, "rx_errors": 0, "step": "status_after_boot", "stream_running": false, "tx_dropped": 0, "uptime_us": 552668}
+{"host_monotonic": 22471.9128445, "name": "autostart_running", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9128579, "name": "autostart_rpm_1000", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9148942, "step": "crank_stop", "stopped": true}
+{"host_monotonic": 22471.9169349, "name": "pattern4_rejected", "ok": true, "status": "BAD_ARGUMENT", "step": "check"}
+{"host_monotonic": 22471.9189826, "invert": 1, "pattern": 3, "step": "crank_config"}
+{"host_monotonic": 22471.9190096, "name": "config_pattern3_invert1", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9209861, "rpm": 1000, "step": "crank_set_rpm"}
+{"host_monotonic": 22471.921018, "name": "set_rpm_1000", "ok": true, "step": "check"}
+{"adc_missed": 0, "crank_running": true, "host_monotonic": 22471.9232836, "i2c_errors": 0, "rpm": 1000, "rx_errors": 0, "step": "status_final", "stream_running": false, "tx_dropped": 0, "uptime_us": 563032}
+{"host_monotonic": 22471.9233128, "name": "final_running", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9233259, "name": "final_rpm_1000", "ok": true, "step": "check"}
+{"host_monotonic": 22471.9233365, "name": "no_errors", "ok": true, "step": "check"}
+{"checks": 10, "failed": 0, "host_monotonic": 22471.9253302, "ok": true, "step": "result"}

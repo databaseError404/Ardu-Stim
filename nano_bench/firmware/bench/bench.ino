@@ -15,8 +15,8 @@
 #error "Use exact Nano baud 1000000 or 500000; 921600 has 8.5 percent error"
 #endif
 
-// Nano bench protocol v1. No EEPROM, boot-time device writes, or automatic
-// crank start.
+// Nano bench protocol v1. No EEPROM or boot-time device writes; the crank
+// generator starts automatically at boot: pattern 3 (48-1), inverted, 1000 rpm.
 static const uint8_t VERSION = 1, MAX_PAYLOAD = 48, RX_CAP = 58, TX_CAP = 58;
 enum {
   OK = 0,
@@ -77,11 +77,11 @@ static volatile uint8_t alertCoalesced = 0;
 static volatile uint32_t alertTime = 0;
 static bool alertAttached = false;
 static uint32_t streamLastReady = 0;
-static volatile bool crankRun = false, crankInvert = false;
+static volatile bool crankRun = false, crankInvert = true;
 static volatile uint16_t crankRpm = 0, crankBaseOcr = 0, crankGapOcr = 0;
 static volatile uint8_t crankPendingClock = 0;
 static volatile bool crankClockPending = false;
-static volatile uint8_t crankPattern = 0, crankPhase = 0, crankHalfCount = 0;
+static volatile uint8_t crankPattern = 3, crankPhase = 0, crankHalfCount = 0;
 static volatile bool crankOut = false;
 static uint32_t adcPeriodUs();
 static void queueAdcEvent(uint8_t device, uint8_t channel, uint32_t counter,
@@ -411,7 +411,7 @@ ISR(TIMER1_COMPA_vect) {
     PORTB &= ~_BV(PB1);
   if (++crankHalfCount == 2) {
     crankHalfCount = 0;
-    uint8_t teeth = (crankPattern == 0 ? 60 : (crankPattern == 1 ? 36 : 24));
+    uint8_t teeth = (crankPattern == 0 ? 60 : (crankPattern == 1 ? 36 : (crankPattern == 2 ? 24 : 48)));
     uint8_t missing = (crankPattern == 0 ? 2 : 1);
     if (++crankPhase >= teeth - missing)
       crankPhase = 0;
@@ -424,7 +424,7 @@ static bool crankTiming(uint16_t rpm, uint8_t *clockSelect, uint16_t *ocr,
   if (!rpm)
     return false;
   const uint16_t prescalers[5] = {1, 8, 64, 256, 1024};
-  uint8_t teeth = (crankPattern == 0 ? 60 : (crankPattern == 1 ? 36 : 24));
+  uint8_t teeth = (crankPattern == 0 ? 60 : (crankPattern == 1 ? 36 : (crankPattern == 2 ? 24 : 48)));
   uint8_t missing = (crankPattern == 0 ? 2 : 1);
   for (uint8_t i = 0; i < 5; i++) {
     uint64_t numerator = (uint64_t)F_CPU * 30ULL;
@@ -696,7 +696,7 @@ static void handleRequest(uint8_t *p, uint8_t n) {
       st = BAD_LENGTH;
     else {
       out[0] = 0;
-      out[1] = 3;
+      out[1] = 4;
       out[2] = 0;
       put32(out + 3, 0xff);
       out[7] = 48;
@@ -972,7 +972,7 @@ static void handleRequest(uint8_t *p, uint8_t n) {
   case 0x30:
     if (len != 2)
       st = BAD_LENGTH;
-    else if (a[0] > 2 || a[1] > 1)
+    else if (a[0] > 3 || a[1] > 1)
       st = BAD_ARGUMENT;
     else if (crankRun)
       st = BUSY;
@@ -1192,6 +1192,8 @@ void setup() {
   Wire.begin();
   Wire.setClock(400000);
   Wire.setWireTimeout(3000, true);
+  // Bench default: 48-1 at 1000 rpm with the inverted D9 output enabled.
+  startCrank(1000);
 }
 void loop() {
   uint32_t now = micros();

@@ -1,0 +1,27 @@
+{
+  "checked_utc": "2026-11-15T18:41Z",
+  "checked_utc_note": "приблизительно, между backup (18:41:34Z) и upload (18:41:55Z)",
+  "method": "побайтовое сравнение Intel HEX по общим адресам (compare_hex.py)",
+  "board_flash_before_vs_published_0.3.0": {
+    "common_bytes": 13432,
+    "diff_bytes": 0,
+    "published_hex_sha256": "a00963641fbded52941ac40a25895a9a1d8d7dab97d0f17303ebe463a7e2df72",
+    "published_hex_source": "H:/2026/ChipTuning/mse6/workspace/2026-11-14_nano_adc_stream/build/bench.ino.hex"
+  },
+  "board_eeprom_before_vs_eeprom_after_v030": {
+    "common_bytes": 1024,
+    "diff_bytes": 0,
+    "reference": "H:/2026/ChipTuning/mse6/workspace/2026-11-14_nano_adc_stream/logs/eeprom_after_v030.hex"
+  },
+  "backup_files": {
+    "nano_before_flash.hex": {
+      "bytes": 78626,
+      "sha256": "b29d23e157ef43d8d0e527f14397e857c1b564d007146398e949cc7119289174"
+    },
+    "nano_before_eeprom.hex": {
+      "bytes": 2477,
+      "sha256": "ea5fa696fcf9e549aeaf74a23891abb79b6754b7cd958b9014e3de91d8285457"
+    }
+  },
+  "backup_location": "H:/2026/ChipTuning/mse6/workspace/2026-11-15_crank_48-1_1000rpm/backup_before_flash (бинарные backup-образы в публикацию не переносятся)"
+}
